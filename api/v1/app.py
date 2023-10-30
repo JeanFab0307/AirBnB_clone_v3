@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-
+"""Flask blueprint usage"""
 
 from flask import Flask
 from os import getenv
