@@ -8,7 +8,7 @@ from models import storage
 from models.state import State
 
 
-@app_views.route('/states',strict_slashes=False,
+@app_views.route('/states', strict_slashes=False,
                  methods=["GET"])
 def states():
     statesList = []
@@ -17,27 +17,27 @@ def states():
     return jsonify(statesList)
 
 
-@app_views.route('/states/<state_id>',strict_slashes=False,
+@app_views.route('/states/<state_id>', strict_slashes=False,
                  methods=["GET"])
 def get_state(state_id):
-    if storage.get(State, state_id) == None:
+    if storage.get(State, state_id) is None:
         abort(404)
     return jsonify(storage.get(State, state_id).to_dict())
 
 
-@app_views.route('/states/<state_id>',strict_slashes=False,
+@app_views.route('/states/<state_id>', strict_slashes=False,
                  methods=['DELETE'])
-def delete(state_id):
-    if storage.get(State, state_id) == None:
+def delete_state(state_id):
+    if storage.get(State, state_id) is None:
         abort(404)
     storage.delete(storage.get(State, state_id))
     storage.save()
     return {}, 200
 
 
-@app_views.route('/states',strict_slashes=False,
+@app_views.route('/states', strict_slashes=False,
                  methods=['POST'])
-def new():
+def new_state():
     data = request.get_json(force=True, silent=True)
     if not data:
         abort(400, 'Not a JSON')
@@ -50,7 +50,7 @@ def new():
 
 @app_views.route("/states/<state_id>", strict_slashes=False,
                  methods=["PUT"])
-def update(state_id):
+def update_state(state_id):
     """update state"""
     obj = storage.get(State, state_id)
     if obj is None:

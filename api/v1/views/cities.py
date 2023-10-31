@@ -68,7 +68,7 @@ def update_city(city_id):
         abort(400, "Not a JSON")
     for key in ignoreKeys:
         if key in data.keys():
-            data.pop(keys)
+            data.pop(key)
     obj = City(**data)
     obj.save()
     return jsonify(obj.to_dict()), 200
